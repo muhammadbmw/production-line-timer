@@ -4,6 +4,7 @@ import { connectDB } from './config/db.js';
 import cors from 'cors';
 import buildRoutes from './routes/buildRoutes.js';
 import notFound from './middleware/notFound.js';
+import sessionRoutes from './routes/sessionRoutes.js'
 
 dotenv.config();
 
@@ -13,11 +14,13 @@ app.use(express.json()); // allows us to accept JSON data in the req.body
 
 const PORT = process.env.PORT || 5000;
 
-app.use('/api/build',buildRoutes);
+app.use('/api/build', buildRoutes);
+app.use('/api/session', sessionRoutes)
 
 app.use(notFound);
 
-app.listen(5000, ()  => {
-    connectDB();
-    console.log(`Server started on port: ${PORT}`);
-})
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("Server started on PORT:", PORT);
+  });
+});
