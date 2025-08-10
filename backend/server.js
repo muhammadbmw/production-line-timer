@@ -14,8 +14,8 @@ app.use(express.json()); // allows us to accept JSON data in the req.body
 
 const PORT = process.env.PORT || 5000;
 
-app.use('/api/build', buildRoutes);
-app.use('/api/session', sessionRoutes)
+app.use('/api/build', buildRoutes); // GET /api/build/:buildNumber
+app.use('/api/session', sessionRoutes)  // session lifecycle
 
 app.use(notFound);
 
